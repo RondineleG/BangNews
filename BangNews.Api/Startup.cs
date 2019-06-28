@@ -1,4 +1,5 @@
-﻿using BangNews.Api.Services;
+﻿using BangNews.Api.Data;
+using BangNews.Api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -27,15 +28,18 @@ namespace BangNews.Api
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
-
-            services.AddDbContext<NoticiasDBContext>(opciones => opciones.UseSqlServer("Data Source=.\\SQLEXPRESS;Initial Catalog=BangNewsDB;Integrated Security=True"));
+            services.AddDbContext<BangNewsApiContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddTransient<NoticiaServices, NoticiaServices>();
+            services.AddTransient<AutorServices, AutorServices>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Latest);
             //  services.AddMvc().AddJsonOptions(options => { options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore; });
             services.AddCors(opciones =>
             {
                 opciones.AddPolicy("PermitirTodo", acceso => acceso.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             });
+
+            services.AddDbContext<BangNewsApiContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("BangNewsApiContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

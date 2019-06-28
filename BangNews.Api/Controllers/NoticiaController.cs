@@ -9,6 +9,7 @@ namespace BangNews.Api.Controllers
     public class NoticiaController : ControllerBase
     {
         private readonly NoticiaServices _noticiasServicio;
+        private readonly AutorServices _autorServices;
         public NoticiaController(NoticiaServices noticiasServicio)
         {
             _noticiasServicio = noticiasServicio;
@@ -90,7 +91,7 @@ namespace BangNews.Api.Controllers
         [Route("listadoAutores")]
         public IActionResult ListadoAutores()
         {
-            return Ok(_noticiasServicio.ListadoDeAutores());
+            return Ok(_autorServices.ListadoDeAutores());
         }
 
 
@@ -98,7 +99,7 @@ namespace BangNews.Api.Controllers
         [HttpGet]
         public IActionResult ProcedimientoSinDatos(int Edad, string Nombre)
         {
-            if (_noticiasServicio.ProcedimientoQueNoDevuelveDatos(Edad, Nombre))
+            if (_autorServices.ProcedimientoQueNoDevuelveDatos(Edad, Nombre))
             {
                 return Ok();
             }
@@ -113,7 +114,7 @@ namespace BangNews.Api.Controllers
         [HttpGet]
         public IActionResult ProcedimientoConDatos(int Edad, string Nombre)
         {
-            return Ok(_noticiasServicio.ProcedimientoConValores(Edad, Nombre));
+            return Ok(_autorServices.ProcedimientoConValores(Edad, Nombre));
         }
     }
 

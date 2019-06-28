@@ -4,13 +4,14 @@ using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using BangNews.Api.Data;
 
 namespace BangNews.Api.Services
 {
     public class NoticiaServices
     {
-        public readonly NoticiasDBContext _NoticiaDB;
-        public NoticiaServices(NoticiasDBContext NoticiaDB)
+        public readonly BangNewsApiContext _NoticiaDB;
+        public NoticiaServices(BangNewsApiContext NoticiaDB)
         {
             _NoticiaDB = NoticiaDB;
         }
@@ -25,9 +26,9 @@ namespace BangNews.Api.Services
         {
             try
             {
-              var NoticiaBuscada =  _NoticiaDB.Noticia.Where(x => x.NoticiaID == NoticiaID).FirstOrDefault();
-              var autor = _NoticiaDB.Autor.Where(x => x.AutorID == NoticiaBuscada.AutorID).FirstOrDefault();
-            
+                var NoticiaBuscada = _NoticiaDB.Noticia.Where(x => x.NoticiaID == NoticiaID).FirstOrDefault();
+                var autor = _NoticiaDB.Autor.Where(x => x.AutorID == NoticiaBuscada.AutorID).FirstOrDefault();
+
                 return NoticiaBuscada;
             }
             catch (Exception error)
@@ -64,11 +65,11 @@ namespace BangNews.Api.Services
                 _NoticiaDB.SaveChanges();
                 return true;
             }
-            catch(Exception error)
+            catch (Exception error)
             {
                 return false;
             }
-            
+
         }
 
         public bool Eliminar(int NoticiaID)
@@ -80,57 +81,9 @@ namespace BangNews.Api.Services
                 _NoticiaDB.SaveChanges();
                 return true;
             }
-            catch(Exception error)
-            {
-                return true;
-            }
-        }
-
-
-        public List<Autor> ListadoDeAutores()
-        {
-            try
-            {
-                var autores = _NoticiaDB.Autor.ToList();
-               
-                return autores;
-            }
             catch (Exception error)
             {
-                return new List<Autor>();
-            }
-        }
-
-        public bool ProcedimientoQueNoDevuelveDatos(int Edad, string Nombre)
-        {
-            try
-            {
-                string query = "spSinValoresDesdeProcedimiento @Edad={0}, @Nombre='{1}'";
-                query = string.Format(query, Edad, Nombre);
-                _NoticiaDB.Database.ExecuteSqlCommand(query);
                 return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-
-        }
-
-
-        public List<Nomes> ProcedimientoConValores(int Edad, string Nombre)
-        {
-            try
-            {
-                SqlParameter parametroEdad = new SqlParameter("@Edad", Edad);
-                SqlParameter parametroNombre = new SqlParameter("@Nombre", Nombre);
-                List<Nomes> nombresRecibidosDeBaseDeDatos
-                    = _NoticiaDB.Nombres.FromSql($"spValoresDesdeProcedimiento @Edad, @Nombre", parametroEdad, parametroNombre).ToList();
-                return nombresRecibidosDeBaseDeDatos;
-            }
-            catch (Exception ex)
-            {
-                return new List<Nomes>();
             }
         }
     }

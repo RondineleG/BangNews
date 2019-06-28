@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-
+using System.Collections.Generic;
 
 namespace BangNews.Api.Models
 {
@@ -9,7 +9,7 @@ namespace BangNews.Api.Models
         public int AutorID { get; set; }
         public string Nombre { get; set; }
         public string Apellido { get; set; }
-       // public List<Noticia> Noticias { get; set; }
+        public List<Noticia> Noticias { get; set; }
 
         public class Map
         {

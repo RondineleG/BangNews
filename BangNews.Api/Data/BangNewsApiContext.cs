@@ -1,17 +1,17 @@
-﻿using Microsoft.EntityFrameworkCore;
-using BangNews.Api.Models;
+﻿using BangNews.Api.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace BangNews.Api
+namespace BangNews.Api.Data
 {
-    public class NoticiasDBContext : DbContext
+    public class BangNewsApiContext : DbContext
     {
-        public NoticiasDBContext(DbContextOptions opciones): base(opciones)
+        public BangNewsApiContext(DbContextOptions<BangNewsApiContext> options)
+            : base(options)
         {
-            
         }
-         
+
+        public DbSet<Autor> Autor { get; set; }
         public virtual DbSet<Noticia> Noticia { get; set; }
-        public virtual DbSet<Autor> Autor { get; set;}
         public virtual DbSet<Nomes> Nombres { get; set; }
 
 

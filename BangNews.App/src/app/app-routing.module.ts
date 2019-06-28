@@ -7,20 +7,15 @@ const routes: Routes = [
     redirectTo: 'listado-noticias',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  {
-    path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
-  },
+    
   { 
     path: 'listado-noticias', 
     loadChildren: './listado-noticias/listado-noticias.module#ListadoNoticiasPageModule'
    },
   { path: 'noticia-detalle/:noticiaID', loadChildren: './noticia-detalle/noticia-detalle.module#NoticiaDetallePageModule' },
-  { path: 'agregar', loadChildren: './agregar/agregar.module#AgregarPageModule' }
+  { path: 'agregar', loadChildren: './agregar/agregar.module#AgregarPageModule' },
+  { path: 'autor', loadChildren: './autor/autor.module#AutorPageModule' },
+  { path: 'lista-autor', loadChildren: './lista-autor/lista-autor.module#ListaAutorPageModule' }
 ];
 
 @NgModule({

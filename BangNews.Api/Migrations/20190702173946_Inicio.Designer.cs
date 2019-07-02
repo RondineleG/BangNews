@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BangNews.Api.Migrations
 {
     [DbContext(typeof(BangNewsApiContext))]
-    [Migration("20190628063240_Inicial")]
-    partial class Inicial
+    [Migration("20190702173946_Inicio")]
+    partial class Inicio
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,12 +27,12 @@ namespace BangNews.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Apellido")
-                        .HasColumnName("Apellido")
+                    b.Property<string>("Apelido")
+                        .HasColumnName("Apelido")
                         .HasMaxLength(50);
 
-                    b.Property<string>("Nombre")
-                        .HasColumnName("Nombre")
+                    b.Property<string>("Nome")
+                        .HasColumnName("Nome")
                         .HasMaxLength(50);
 
                     b.HasKey("AutorID");
@@ -40,17 +40,17 @@ namespace BangNews.Api.Migrations
                     b.ToTable("Autor");
                 });
 
-            modelBuilder.Entity("BangNews.Api.Models.Nomes", b =>
+            modelBuilder.Entity("BangNews.Api.Models.Nome", b =>
                 {
-                    b.Property<int>("NombreID")
+                    b.Property<int>("NomeID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Nombre");
+                    b.Property<string>("Nomes");
 
-                    b.HasKey("NombreID");
+                    b.HasKey("NomeID");
 
-                    b.ToTable("Nombres");
+                    b.ToTable("Nomes");
                 });
 
             modelBuilder.Entity("BangNews.Api.Models.Noticia", b =>
@@ -63,17 +63,17 @@ namespace BangNews.Api.Migrations
                         .HasColumnName("AutorID")
                         .HasColumnType("int");
 
-                    b.Property<string>("Contenido")
-                        .HasColumnName("Contenido")
+                    b.Property<string>("Conteudo")
+                        .HasColumnName("Conteudo")
                         .HasMaxLength(2147483647);
 
-                    b.Property<string>("Descripcion")
-                        .HasColumnName("Descripcion")
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime>("Fecha")
-                        .HasColumnName("Fecha")
+                    b.Property<DateTime>("DataCadastro")
+                        .HasColumnName("DataCadastro")
                         .HasColumnType("Datetime");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnName("Descricao")
+                        .HasMaxLength(100);
 
                     b.Property<string>("Titulo")
                         .HasColumnName("Titulo")
@@ -83,7 +83,7 @@ namespace BangNews.Api.Migrations
 
                     b.HasIndex("AutorID");
 
-                    b.ToTable("Noticia");
+                    b.ToTable("Noticias");
                 });
 
             modelBuilder.Entity("BangNews.Api.Models.Noticia", b =>

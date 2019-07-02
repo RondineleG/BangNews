@@ -11,8 +11,8 @@ namespace BangNews.Api.Data
         }
 
         public DbSet<Autor> Autor { get; set; }
-        public virtual DbSet<Noticia> Noticia { get; set; }
-        public virtual DbSet<Nomes> Nombres { get; set; }
+        public virtual DbSet<Noticia> Noticias { get; set; }
+        public virtual DbSet<Nome> Nomes { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelB)

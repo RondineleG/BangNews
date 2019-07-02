@@ -9,38 +9,38 @@ import { Autor } from 'src/app/models/autor.models';
 })
 export class NoticiasService {
 
-  constructor(public https: HttpClient) { }
+  constructor(public http: HttpClient) { }
 
 
   verNoticias() : Observable<Noticia[]> {
-    return this.https.get<Noticia[]>("https://localhost:5001/api/noticias/vernoticias");
+    return this.http.get<Noticia[]>("https://localhost:44319/api/noticias/TodasNoticias/");
   }
 
   porNoticiaID(noticiaID: number) : Observable<Noticia>{
-    return this.https.get<Noticia>("https://localhost:5001/api/noticias/PorNoticiaID/" + noticiaID)
+    return this.http.get<Noticia>("https://localhost:44319/api/noticias/NoticiaPorID/" + noticiaID)
   }
 
 
   eliminarNoticia(noticiaID: number): Observable<boolean>
   {
-    return this.https.get<boolean>("https://localhost:5001/api/noticias/eliminar/" + noticiaID)
+    return this.http.get<boolean>("https://localhost:44319/api/noticias/Deletar" + noticiaID)
   }
 
 
   listadoDeAutores(): Observable<Autor[]>
   {
-    return this.https.get<Autor[]>("https://localhost:5001/api/noticias/listadoAutores/")
+    return this.http.get<Autor[]>("https://localhost:44319/api/noticias/listadDeAutores/")
   }
 
 
   agregarNoticia(noticia: Noticia): Observable<boolean>
   {
-    return this.https.post<boolean>("https://localhost:5001/api/noticias/agregar",noticia)
+    return this.http.post<boolean>("https://localhost:44319/api/noticias/Salvar",noticia)
   }
 
 
   editarNoticia(noticia: Noticia): Observable<boolean>
   {
-    return this.https.put<boolean>("https://localhost:5001/api/noticias/Editar",noticia)
+    return this.http.put<boolean>("https://localhost:44319/api/noticias/Editar",noticia)
   }
 }

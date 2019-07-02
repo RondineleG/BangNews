@@ -18,18 +18,7 @@ export class AppComponent {
     
    
     {
-      titulo:'Nova Noticia',
-      url: '/agregar',
-      icon: 'add'
-    },
-    {
-      titulo: 'Autor',
-      url: '/lista-autor',
-      icon: 'book'
-    },
-    
-    {
-      titulo:'Novo Autor',
+      titulo:'Nova',
       url: '/agregar',
       icon: 'add'
     }

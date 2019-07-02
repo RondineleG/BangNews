@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BangNews.Api.Migrations
 {
-    public partial class Inicial : Migration
+    public partial class Inicio : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,8 +14,8 @@ namespace BangNews.Api.Migrations
                 {
                     AutorID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(maxLength: 50, nullable: true),
-                    Apellido = table.Column<string>(maxLength: 50, nullable: true)
+                    Nome = table.Column<string>(maxLength: 50, nullable: true),
+                    Apelido = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -23,35 +23,35 @@ namespace BangNews.Api.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Nombres",
+                name: "Nomes",
                 columns: table => new
                 {
-                    NombreID = table.Column<int>(nullable: false)
+                    NomeID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Nombre = table.Column<string>(nullable: true)
+                    Nomes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Nombres", x => x.NombreID);
+                    table.PrimaryKey("PK_Nomes", x => x.NomeID);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Noticia",
+                name: "Noticias",
                 columns: table => new
                 {
                     NoticiaID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Titulo = table.Column<string>(maxLength: 50, nullable: true),
-                    Descripcion = table.Column<string>(maxLength: 100, nullable: true),
-                    Contenido = table.Column<string>(maxLength: 2147483647, nullable: true),
-                    Fecha = table.Column<DateTime>(type: "Datetime", nullable: false),
+                    Descricao = table.Column<string>(maxLength: 100, nullable: true),
+                    Conteudo = table.Column<string>(maxLength: 2147483647, nullable: true),
+                    DataCadastro = table.Column<DateTime>(type: "Datetime", nullable: false),
                     AutorID = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Noticia", x => x.NoticiaID);
+                    table.PrimaryKey("PK_Noticias", x => x.NoticiaID);
                     table.ForeignKey(
-                        name: "FK_Noticia_Autor_AutorID",
+                        name: "FK_Noticias_Autor_AutorID",
                         column: x => x.AutorID,
                         principalTable: "Autor",
                         principalColumn: "AutorID",
@@ -59,18 +59,18 @@ namespace BangNews.Api.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Noticia_AutorID",
-                table: "Noticia",
+                name: "IX_Noticias_AutorID",
+                table: "Noticias",
                 column: "AutorID");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Nombres");
+                name: "Nomes");
 
             migrationBuilder.DropTable(
-                name: "Noticia");
+                name: "Noticias");
 
             migrationBuilder.DropTable(
                 name: "Autor");

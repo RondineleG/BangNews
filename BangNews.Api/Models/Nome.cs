@@ -2,12 +2,12 @@
 
 namespace BangNews.Api.Models
 {
-    public class Nomes
+    public class Nome
     {
  
             [Key]
-            public int NombreID { get; set; }
-            public string Nombre { get; set; }
+            public int NomeID { get; set; }
+            public string Nomes { get; set; }
 
     }
 }

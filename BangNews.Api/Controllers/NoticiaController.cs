@@ -14,15 +14,9 @@ namespace BangNews.Api.Controllers
         {
             _noticiasServicio = noticiasServicio;
         }
+        
 
-
-        public IActionResult Prueba()
-        {
-            return Ok("Funciona");
-        }
-
-
-        [Route("VerNoticias")]
+        [Route("TodasNoticias")]
         [HttpGet]
         public IActionResult VerNoticias()
         {
@@ -30,7 +24,7 @@ namespace BangNews.Api.Controllers
             return Ok(resultado);
         }
 
-        [Route("PorNoticiaID/{NoticiaID}")]
+        [Route("NoticiaPorID/{NoticiaID}")]
         [HttpGet]
         public IActionResult NoticiaPorID( int NoticiaID)
         {
@@ -38,7 +32,7 @@ namespace BangNews.Api.Controllers
         }
 
 
-        [Route("Agregar")]
+        [Route("Salvar")]
         [HttpPost]
         public IActionResult Agregar([FromBody] Noticia NoticiaAgregar)
         {
@@ -72,7 +66,7 @@ namespace BangNews.Api.Controllers
 
    
 
-        [Route("eliminar/{noticiaID}")]
+        [Route("Deletar/{noticiaID}")]
         public IActionResult Eliminar(int noticiaID)
         {
             if (_noticiasServicio.Eliminar(noticiaID))
@@ -88,10 +82,10 @@ namespace BangNews.Api.Controllers
 
 
 
-        [Route("listadoAutores")]
+        [Route("ListaDeAutores")]
         public IActionResult ListadoAutores()
         {
-            return Ok(_autorServices.ListadoDeAutores());
+            return Ok(_noticiasServicio.ListadoDeAutores());
         }
 
 

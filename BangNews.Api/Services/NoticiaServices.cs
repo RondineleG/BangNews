@@ -1,24 +1,24 @@
-﻿using BangNews.Api.Models;
+﻿using BangNews.Api.Data;
+using BangNews.Api.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using BangNews.Api.Data;
 
 namespace BangNews.Api.Services
 {
     public class NoticiaServices
     {
-        public readonly BangNewsApiContext _NoticiaDB;
-        public NoticiaServices(BangNewsApiContext NoticiaDB)
+        public readonly BangNewsApiContext _BangNewsDB;
+        public NoticiaServices(BangNewsApiContext BangNewsDB)
         {
-            _NoticiaDB = NoticiaDB;
+            _BangNewsDB = BangNewsDB;
         }
 
         public List<Noticia> VerListadoTodasLasNoticias()
         {
-            var NoticiaBuscada = _NoticiaDB.Noticia.Include(x => x.Autor).OrderByDescending(x => x.NoticiaID).ToList();
+            var NoticiaBuscada = _BangNewsDB.Noticias.Include(x => x.Autor).OrderByDescending(x => x.NoticiaID).ToList();
             return NoticiaBuscada;
         }
 
@@ -26,8 +26,8 @@ namespace BangNews.Api.Services
         {
             try
             {
-                var NoticiaBuscada = _NoticiaDB.Noticia.Where(x => x.NoticiaID == NoticiaID).FirstOrDefault();
-                var autor = _NoticiaDB.Autor.Where(x => x.AutorID == NoticiaBuscada.AutorID).FirstOrDefault();
+                var NoticiaBuscada = _BangNewsDB.Noticias.Where(x => x.NoticiaID == NoticiaID).FirstOrDefault();
+                var autor = _BangNewsDB.Autor.Where(x => x.AutorID == NoticiaBuscada.AutorID).FirstOrDefault();
 
                 return NoticiaBuscada;
             }
@@ -40,8 +40,8 @@ namespace BangNews.Api.Services
         {
             try
             {
-                _NoticiaDB.Noticia.Add(NoticiaAgregar);
-                _NoticiaDB.SaveChanges();
+                _BangNewsDB.Noticias.Add(NoticiaAgregar);
+                _BangNewsDB.SaveChanges();
                 return true;
             }
             catch (Exception error)
@@ -56,13 +56,13 @@ namespace BangNews.Api.Services
         {
             try
             {
-                var noticia = _NoticiaDB.Noticia.FirstOrDefault(x => x.NoticiaID == NoticiaEditar.NoticiaID);
+                var noticia = _BangNewsDB.Noticias.FirstOrDefault(x => x.NoticiaID == NoticiaEditar.NoticiaID);
                 noticia.Titulo = NoticiaEditar.Titulo;
-                noticia.Descripcion = NoticiaEditar.Descripcion;
-                noticia.Contenido = NoticiaEditar.Contenido;
-                noticia.Fecha = NoticiaEditar.Fecha;
+                noticia.Descricao = NoticiaEditar.Descricao;
+                noticia.Conteudo = NoticiaEditar.Conteudo;
+                noticia.DataCadastro = NoticiaEditar.DataCadastro;
                 noticia.AutorID = NoticiaEditar.AutorID;
-                _NoticiaDB.SaveChanges();
+                _BangNewsDB.SaveChanges();
                 return true;
             }
             catch (Exception error)
@@ -76,14 +76,60 @@ namespace BangNews.Api.Services
         {
             try
             {
-                var noticiaEliminar = _NoticiaDB.Noticia.FirstOrDefault(x => x.NoticiaID == NoticiaID);
-                _NoticiaDB.Noticia.Remove(noticiaEliminar);
-                _NoticiaDB.SaveChanges();
+                var noticiaEliminar = _BangNewsDB.Noticias.FirstOrDefault(x => x.NoticiaID == NoticiaID);
+                _BangNewsDB.Noticias.Remove(noticiaEliminar);
+                _BangNewsDB.SaveChanges();
                 return true;
             }
             catch (Exception error)
             {
                 return true;
+            }
+        }
+        public List<Autor> ListadoDeAutores()
+        {
+            try
+            {
+                var autores = _BangNewsDB.Autor.ToList();
+
+                return autores;
+            }
+            catch (Exception error)
+            {
+                return new List<Autor>();
+            }
+        }
+
+        public bool ProcedimientoQueNoDevuelveDatos(int Edad, string Nombre)
+        {
+            try
+            {
+                string query = "spSinValoresDesdeProcedimiento @Edad={0}, @Nome='{1}'";
+                query = string.Format(query, Edad, Nombre);
+                _BangNewsDB.Database.ExecuteSqlCommand(query);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
+        }
+
+
+        public List<Nome> ProcedimientoConValores(int Edad, string Nombre)
+        {
+            try
+            {
+                SqlParameter parametroEdad = new SqlParameter("@Edad", Edad);
+                SqlParameter parametroNombre = new SqlParameter("@Nome", Nombre);
+                List<Nome> nombresRecibidosDeBaseDeDatos
+                    = _BangNewsDB.Nomes.FromSql($"spValoresDesdeProcedimiento @Edad, @Nome", parametroEdad, parametroNombre).ToList();
+                return nombresRecibidosDeBaseDeDatos;
+            }
+            catch (Exception ex)
+            {
+                return new List<Nome>();
             }
         }
     }

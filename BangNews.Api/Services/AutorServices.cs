@@ -34,7 +34,7 @@ namespace BangNews.Api.Services
         {
             try
             {
-                string query = "spSinValoresDesdeProcedimiento @Edad={0}, @Nombre='{1}'";
+                string query = "spSinValoresDesdeProcedimiento @Edad={0}, @Nome='{1}'";
                 query = string.Format(query, Edad, Nombre);
                 _BangNewsDB.Database.ExecuteSqlCommand(query);
                 return true;
@@ -47,19 +47,19 @@ namespace BangNews.Api.Services
         }
 
 
-        public List<Nomes> ProcedimientoConValores(int Edad, string Nombre)
+        public List<Nome> ProcedimientoConValores(int Edad, string Nombre)
         {
             try
             {
                 SqlParameter parametroEdad = new SqlParameter("@Edad", Edad);
-                SqlParameter parametroNombre = new SqlParameter("@Nombre", Nombre);
-                List<Nomes> nombresRecibidosDeBaseDeDatos
-                    = _BangNewsDB.Nombres.FromSql($"spValoresDesdeProcedimiento @Edad, @Nombre", parametroEdad, parametroNombre).ToList();
+                SqlParameter parametroNombre = new SqlParameter("@Nome", Nombre);
+                List<Nome> nombresRecibidosDeBaseDeDatos
+                    = _BangNewsDB.Nomes.FromSql($"spValoresDesdeProcedimiento @Edad, @Nome", parametroEdad, parametroNombre).ToList();
                 return nombresRecibidosDeBaseDeDatos;
             }
             catch (Exception ex)
             {
-                return new List<Nomes>();
+                return new List<Nome>();
             }
         }
     }

@@ -1,2 +1,2 @@
-# bagNewsApp
-App feito com front-end em  Ionic e  AspNet Core Web API como back-end
+# BangNews
+Front-end made Ionic and AspNet Core Web API how back-end

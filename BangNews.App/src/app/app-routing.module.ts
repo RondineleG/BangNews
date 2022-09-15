@@ -9,18 +9,26 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
+    loadChildren: () => import('../app/home/home.module').then(x => x.HomePageModule)
+
   },
   {
     path: 'list',
-    loadChildren: './list/list.module#ListPageModule'
+    loadChildren: () => import('../app/list/list.module').then(x => x.ListPageModule)
   },
   { 
     path: 'listado-noticias', 
-    loadChildren: './listado-noticias/listado-noticias.module#ListadoNoticiasPageModule'
+    loadChildren: () => import('../app/listado-noticias/listado-noticias.module').then(x => x.ListadoNoticiasPageModule)
    },
-  { path: 'noticia-detalle/:noticiaID', loadChildren: './noticia-detalle/noticia-detalle.module#NoticiaDetallePageModule' },
-  { path: 'agregar', loadChildren: './agregar/agregar.module#AgregarPageModule' }
+  { 
+    path: 'noticia-detalle/:noticiaID',
+     loadChildren: () => import('../app/noticia-detalle/noticia-detalle.module').then(x => x.NoticiaDetallePageModule)
+  },
+  { 
+    path: 'agregar',
+     loadChildren: () => import('../app/agregar/agregar.module').then(x => x.AgregarPageModule)
+  }
+
 ];
 
 @NgModule({

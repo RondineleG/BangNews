@@ -1,9 +1,9 @@
 ﻿using BangNews.Api.Data;
 using BangNews.Api.Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Linq;
 
 namespace BangNews.Api.Services
@@ -15,13 +15,13 @@ namespace BangNews.Api.Services
         {
             _BangNewsDB = BangNewsDB;
         }
-               
+
         public List<Autor> ListadoDeAutores()
         {
             try
             {
                 var autores = _BangNewsDB.Autor.ToList();
-               
+
                 return autores;
             }
             catch (Exception error)
@@ -36,7 +36,7 @@ namespace BangNews.Api.Services
             {
                 string query = "spSinValoresDesdeProcedimiento @Edad={0}, @Nome='{1}'";
                 query = string.Format(query, Edad, Nombre);
-                _BangNewsDB.Database.ExecuteSqlCommand(query);
+                _BangNewsDB.Database.ExecuteSqlRaw(query);
                 return true;
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace BangNews.Api.Services
                 SqlParameter parametroEdad = new SqlParameter("@Edad", Edad);
                 SqlParameter parametroNombre = new SqlParameter("@Nome", Nombre);
                 List<Nome> nombresRecibidosDeBaseDeDatos
-                    = _BangNewsDB.Nomes.FromSql($"spValoresDesdeProcedimiento @Edad, @Nome", parametroEdad, parametroNombre).ToList();
+                    = _BangNewsDB.Nomes.FromSqlRaw($"spValoresDesdeProcedimiento @Edad, @Nome", parametroEdad, parametroNombre).ToList();
                 return nombresRecibidosDeBaseDeDatos;
             }
             catch (Exception ex)

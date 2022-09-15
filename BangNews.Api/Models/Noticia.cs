@@ -26,8 +26,8 @@ namespace BangNews.Api.Models
                 mapNoticia.Property(x => x.DataCadastro).HasColumnName("DataCadastro").HasColumnType("Datetime");
                 mapNoticia.Property(x => x.AutorID).HasColumnName("AutorID").HasColumnType("int");
                 mapNoticia.HasOne(x => x.Autor);
-            
+
             }
         }
-    }   
+    }
 }

@@ -14,7 +14,7 @@ namespace BangNews.Api.Controllers
         {
             _noticiasServicio = noticiasServicio;
         }
-        
+
 
         [Route("TodasNoticias")]
         [HttpGet]
@@ -26,7 +26,7 @@ namespace BangNews.Api.Controllers
 
         [Route("NoticiaPorID/{NoticiaID}")]
         [HttpGet]
-        public IActionResult NoticiaPorID( int NoticiaID)
+        public IActionResult NoticiaPorID(int NoticiaID)
         {
             return Ok(_noticiasServicio.ObtenerPorID(NoticiaID));
         }
@@ -36,47 +36,26 @@ namespace BangNews.Api.Controllers
         [HttpPost]
         public IActionResult Agregar([FromBody] Noticia NoticiaAgregar)
         {
-            if (_noticiasServicio.Agregar(NoticiaAgregar))
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return _noticiasServicio.Agregar(NoticiaAgregar) ? Ok() : BadRequest();
         }
 
 
-         
+
 
 
         [Route("Editar")]
         [HttpPut]
-        public IActionResult Editar([FromBody] Noticia  NoticiaEditar)
+        public IActionResult Editar([FromBody] Noticia NoticiaEditar)
         {
-            if (_noticiasServicio.Editar(NoticiaEditar))
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return _noticiasServicio.Editar(NoticiaEditar) ? Ok() : BadRequest();
         }
 
-   
+
 
         [Route("Deletar/{noticiaID}")]
         public IActionResult Eliminar(int noticiaID)
         {
-            if (_noticiasServicio.Eliminar(noticiaID))
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return _noticiasServicio.Eliminar(noticiaID) ? Ok() : BadRequest();
 
         }
 
@@ -93,14 +72,7 @@ namespace BangNews.Api.Controllers
         [HttpGet]
         public IActionResult ProcedimientoSinDatos(int Edad, string Nombre)
         {
-            if (_autorServices.ProcedimientoQueNoDevuelveDatos(Edad, Nombre))
-            {
-                return Ok();
-            }
-            else
-            {
-                return BadRequest();
-            }
+            return _autorServices.ProcedimientoQueNoDevuelveDatos(Edad, Nombre) ? Ok() : BadRequest();
         }
 
 

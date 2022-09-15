@@ -39,10 +39,6 @@ namespace BangNews.Api.Controllers
             return _noticiasServicio.Agregar(NoticiaAgregar) ? Ok() : BadRequest();
         }
 
-
-
-
-
         [Route("Editar")]
         [HttpPut]
         public IActionResult Editar([FromBody] Noticia NoticiaEditar)
@@ -51,17 +47,16 @@ namespace BangNews.Api.Controllers
         }
 
 
-
         [Route("Deletar/{noticiaID}")]
+        [HttpDelete]
         public IActionResult Eliminar(int noticiaID)
         {
             return _noticiasServicio.Eliminar(noticiaID) ? Ok() : BadRequest();
 
         }
 
-
-
         [Route("ListaDeAutores")]
+        [HttpGet]
         public IActionResult ListadoAutores()
         {
             return Ok(_noticiasServicio.ListadoDeAutores());

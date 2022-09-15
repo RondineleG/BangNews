@@ -19,14 +19,12 @@ namespace BangNews.Api.Controllers
             _context = context;
         }
 
-        // GET: api/Autor
         [HttpGet]
         public IEnumerable<Autor> GetAutor()
         {
             return _context.Autor;
         }
 
-        // GET: api/Autor/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetAutor([FromRoute] int id)
         {
@@ -40,7 +38,6 @@ namespace BangNews.Api.Controllers
             return autor == null ? NotFound() : Ok(autor);
         }
 
-        // PUT: api/Autor/5
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAutor([FromRoute] int id, [FromBody] Autor autor)
         {
@@ -75,7 +72,6 @@ namespace BangNews.Api.Controllers
             return NoContent();
         }
 
-        // POST: api/Autor
         [HttpPost]
         public async Task<IActionResult> PostAutor([FromBody] Autor autor)
         {
@@ -90,7 +86,6 @@ namespace BangNews.Api.Controllers
             return CreatedAtAction("GetAutor", new { id = autor.AutorID }, autor);
         }
 
-        // DELETE: api/Autor/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteAutor([FromRoute] int id)
         {
